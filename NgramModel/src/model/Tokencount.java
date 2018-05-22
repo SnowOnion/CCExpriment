@@ -1,16 +1,16 @@
 package model;
 
 
-public class Tokencount {
-	private String token;
+public class Tokencount<K> {
+	private K token;
 	private int count;
 	
-	public Tokencount(String ptoken, int pcount) {
+	public Tokencount(K ptoken, int pcount) {
 		this.token = ptoken;
 		this.count = pcount;
 	}
 	
-	public String getToken() {
+	public K getToken() {
 		return this.token;
 	}
 	
@@ -20,5 +20,11 @@ public class Tokencount {
 	
 	public void addCount() {
 		count++;
+	}
+	
+	public boolean equals(Tokencount<K> tc) {
+		boolean cnteq = (count == tc.count);
+		boolean tokeneq = (token == tc.token);
+		return (cnteq && tokeneq);
 	}
 }

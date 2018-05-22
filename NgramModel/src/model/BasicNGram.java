@@ -1,41 +1,101 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import model.Tokencount;
-import model.Tokensequence;
+import java.util.Iterator;
 
 //HashMap <HashSet, HashSet<Tokencount>>
 //dic: the set of token
 
-public class BasicNGram {
+public class BasicNGram<K> {
 	//n in NGram, n = 2 in bigram, n = 3 in trigram
 	//ndic: n-order Cartesian product
 	//model: ndic -> {[(candidate, prop or count)]}
 	
 	public int n; 
-	public HashSet dic;
-	protected HashMap model;
+	public HashSet<K> dic;
+	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> model;
 	
 	public BasicNGram(int ngramN) {
 		this.n = ngramN;
-		this.dic = new HashSet();
-		this.model = new HashMap();
+		this.dic = new HashSet<K>();
+		this.model = new HashMap<>();
 	}
 	
-
-	public void importDictionary() {
-		 //obtain dic and ndic
+	
+	public  Tokensequence<K>[] importDictionary(ArrayList<Tokensequence<K>> sourceDictionary) {
+		int size = sourceDictionary.size();
+		if (size == 0) {
+			return null;
+		}
+		
+		Tokensequence<K>[] srcdicArr = null;
+		sourceDictionary.toArray(srcdicArr);
+		
+		return srcdicArr;
 	}
 	
-	public void trainBasicNGramModel() {
+	
+	//TODO: need to polish
+	//!!! VITAL IMPORTANT	
+	public void trainBasicNGramModel(Tokensequence<K>[] srcdicArr) {
 		//get model in single cycle of training
 		//obtain model
+		int len = srcdicArr.length;
+		
+		for (int i = 0; i < len; i++) {
+			Tokensequence<K> tmptokenseq = srcdicArr[i];
+			Tokensequence<K>[] tokenseqPair = tmptokenseq.splitToken();
+			
+			if (model.containsKey(tokenseqPair[0])) {
+				HashSet<Tokencount<K>> tokencntset =  model.remove(tokenseqPair[0]);
+				Iterator<Tokencount<K>> it = tokencntset.iterator();
+				while(it.hasNext()) {
+					Tokencount<K> tokencnt = it.next();
+					if (tokencnt.getToken().equals(tokenseqPair[1])) {
+						tokencnt.addCount();
+						tokencntset.add(tokencnt);
+					} else {
+						tokencntset.add(new Tokencount(tokenseqPair[1], 1));
+						break;
+					}
+				}
+				model.put(tokenseqPair[0], tokencntset);
+			} else {
+				HashSet<Tokencount<K>> tokencntset = new HashSet<Tokencount<K>>();
+				Tokencount<K> tokencnt = new Tokencount<K>(tokenseqPair[1].getToken(), 1);
+				tokencntset.add(tokencnt);
+				model.put(tokenseqPair[0], tokencntset);
+			}
+		}
 	}
 	
-	public void preAction() {
-		importDictionary();
-		trainBasicNGramModel();
+	
+	//TODO
+	public void preAction(ArrayList<Tokensequence<K>> sourceDictionary) {
+		Tokensequence<K>[] srcdicArr = importDictionary(sourceDictionary);
+		trainBasicNGramModel(srcdicArr);
+	}
+	
+	
+	public K tokenInference(Tokensequence<K> nseq) {
+		HashSet<Tokencount<K>> candidates = getBasicNGramCandidates(nseq);
+		
+		Iterator<Tokencount<K>> it = candidates.iterator();
+		int maxcnt = 0;
+		Tokencount<K> tokencnt = null;
+		
+		while(it.hasNext()) {
+			Tokencount<K> tmptc = it.next();
+			int tmpcnt = tmptc.getCount();
+			if (maxcnt < tmpcnt) {
+				maxcnt = tmpcnt;
+				tokencnt = tmptc;
+			}  
+		}
+		
+		return tokencnt.getToken();
 	}
 	
 	
@@ -43,24 +103,16 @@ public class BasicNGram {
 	 *model has the form: {Tokensequence ---> [Tokencount]}
 	 *detail: (a1,a2,...,an)--->{(candidate1, count1)...}   
 	 */	
-	public HashMap getBasicNGramModel() {
+	public HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> getBasicNGramModel() {
 		return this.model;
-	}
-	
-	
-	/* get the key set of model
-	 * element has the form of (a1,a2,...,an)
-	 */
-	public Object getBasicNGramNDictionary() {
-		return model.keySet();
 	}
 	
 	
 	/*get the model
 	 *model has the form: {Tokensequence ---> [Tokencount]}
 	 *return [Tokencount]   
-	 */		
-	public Object getBasicNGramCandidates(Tokensequence nseq) {
+	 */
+	public HashSet<Tokencount<K>> getBasicNGramCandidates(Tokensequence<K> nseq) {
 		return model.get(nseq);
 	}
 }
