@@ -1,24 +1,29 @@
+package model;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import model.Tokencount;
+import model.Tokensequence;
 
-public class BasicNGram<K> {
+//HashMap <HashSet, HashSet<Tokencount>>
+//dic: the set of token
+
+public class BasicNGram {
 	//n in NGram, n = 2 in bigram, n = 3 in trigram
-	//(a1, a2,... an) -> [(candidate, prop)]
+	//ndic: n-order Cartesian product
+	//model: ndic -> {[(candidate, prop or count)]}
 	
 	public int n; 
-	public HashSet<K> dic;
-	public HashSet<K> ndic;   //n-order Cartesian product;
-	protected HashMap<K, HashSet<Tokencount>> model;
+	public HashSet dic;
+	protected HashMap model;
 	
-	public BasicNGram<K> (int ngramN) {
+	public BasicNGram(int ngramN) {
 		this.n = ngramN;
-		this.dic = new HashSet<K>();
-		this.ndic = new HashSet<K>();
-		this.model = new HashMap<K, HashSet<Tokencount>>();
+		this.dic = new HashSet();
+		this.model = new HashMap();
 	}
 	
-	//undefined
+
 	public void importDictionary() {
 		 //obtain dic and ndic
 	}
@@ -28,7 +33,34 @@ public class BasicNGram<K> {
 		//obtain model
 	}
 	
-	public HashMap<K, HashSet<Tokencount>> getBasicNGramModel() {
+	public void preAction() {
+		importDictionary();
+		trainBasicNGramModel();
+	}
+	
+	
+	/*get the model
+	 *model has the form: {Tokensequence ---> [Tokencount]}
+	 *detail: (a1,a2,...,an)--->{(candidate1, count1)...}   
+	 */	
+	public HashMap getBasicNGramModel() {
 		return this.model;
+	}
+	
+	
+	/* get the key set of model
+	 * element has the form of (a1,a2,...,an)
+	 */
+	public Object getBasicNGramNDictionary() {
+		return model.keySet();
+	}
+	
+	
+	/*get the model
+	 *model has the form: {Tokensequence ---> [Tokencount]}
+	 *return [Tokencount]   
+	 */		
+	public Object getBasicNGramCandidates(Tokensequence nseq) {
+		return model.get(nseq);
 	}
 }
