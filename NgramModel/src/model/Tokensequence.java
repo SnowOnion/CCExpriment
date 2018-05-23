@@ -67,11 +67,18 @@ public class Tokensequence<K> {
 		return this.lastoken;
 	}
 
+	
 	public int hashCode() {
 		return 60;
 	}
 	
-	public boolean equals(Tokensequence<K> tokenseq) {
+	
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Tokensequence)) {
+			return false;
+		}
+		
+		Tokensequence<?> tokenseq = (Tokensequence<?>) obj;
 		boolean b1 = (this.n == tokenseq.n);
 		boolean b2 = true;
 		
@@ -79,7 +86,7 @@ public class Tokensequence<K> {
 			b2 = false;
 		} else {
 			for (int i = 0; i < n; i++) {
-				if (this.sequence.get(i) != tokenseq.sequence.get(i)) {
+				if (!(this.sequence.get(i).equals(tokenseq.sequence.get(i)))) {
 					b2 = false;
 					break;
 				}
@@ -88,4 +95,5 @@ public class Tokensequence<K> {
 		
 		return (b1 && b2);
 	}
+	
 }

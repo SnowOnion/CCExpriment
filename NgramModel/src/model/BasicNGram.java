@@ -29,10 +29,10 @@ public class BasicNGram<K> {
 		return sourceDictionary;
 	}
 	
-	
-//	public ArrayList<Tokensequence<K>> importDictionary() {
-//		return (new ArrayList<Tokensequence<K>>());
-//	}
+	//TODO
+	public void importDictionary() {
+		return;
+	}
 	
 	
 	//TODO: need to polish
