@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Optional;
 
 //HashMap <HashSet, HashSet<Tokencount>>
 //dic: the set of token
@@ -24,17 +25,14 @@ public class BasicNGram<K> {
 	}
 	
 	
-	public  Tokensequence<K>[] importDictionary(ArrayList<Tokensequence<K>> sourceDictionary) {
-		int size = sourceDictionary.size();
-		if (size == 0) {
-			return null;
-		}
-		
-		Tokensequence<K>[] srcdicArr = null;
-		sourceDictionary.toArray(srcdicArr);
-		
-		return srcdicArr;
+	public  ArrayList<Tokensequence<K>> importDictionary(ArrayList<Tokensequence<K>> sourceDictionary) {
+		return sourceDictionary;
 	}
+	
+	
+//	public ArrayList<Tokensequence<K>> importDictionary() {
+//		return (new ArrayList<Tokensequence<K>>());
+//	}
 	
 	
 	//TODO: need to polish
@@ -49,6 +47,7 @@ public class BasicNGram<K> {
 			Tokensequence<K> tmptokeninitseq = new Tokensequence<K>(tmptokenseq.getInitSequence().get()); 
 			K tmplasttoken = tmptokenseq.getLastToken().get();
 			
+			//model.containsKey(tmptokeninitseq)
 			if (model.containsKey(tmptokeninitseq)) {
 				HashSet<Tokencount<K>> tokencntset =  model.remove(tmptokeninitseq);
 				Iterator<Tokencount<K>> it = tokencntset.iterator();
@@ -75,14 +74,29 @@ public class BasicNGram<K> {
 	
 	//TODO
 	public void preAction(ArrayList<Tokensequence<K>> sourceDictionary) {
-		Tokensequence<K>[] srcdicArr = importDictionary(sourceDictionary);
+		int len = sourceDictionary.size();
+		if (len == 0) return;
+		if (sourceDictionary.get(0).n - 1 != this.n) {
+			return;
+		}
+		
+		Tokensequence<K>[] srcdicArr = new Tokensequence [len];
+		
+		for (int i = 0; i < len; i++) {
+			srcdicArr[i] = sourceDictionary.get(i);
+		}
+		
 		trainBasicNGramModel(srcdicArr);
 	}
 	
 	
-	public K tokenInference(Tokensequence<K> nseq) {
-		HashSet<Tokencount<K>> candidates = getBasicNGramCandidates(nseq);
+	public Optional<K> tokenInference(Tokensequence<K> nseq) {
+		Optional<HashSet<Tokencount<K>>> opcandidates = getBasicNGramCandidates(nseq);
+		if (!opcandidates.isPresent()) {
+			return Optional.empty();
+		}
 		
+		HashSet<Tokencount<K>> candidates = opcandidates.get();
 		Iterator<Tokencount<K>> it = candidates.iterator();
 		int maxcnt = 0;
 		Tokencount<K> tokencnt = null;
@@ -96,7 +110,11 @@ public class BasicNGram<K> {
 			}  
 		}
 		
-		return tokencnt.getToken();
+		if (tokencnt == null) {
+			return Optional.empty();
+		} else {
+			return Optional.of(tokencnt.getToken());
+		}
 	}
 	
 	
@@ -113,7 +131,12 @@ public class BasicNGram<K> {
 	 *model has the form: {Tokensequence ---> [Tokencount]}
 	 *return [Tokencount]   
 	 */
-	public HashSet<Tokencount<K>> getBasicNGramCandidates(Tokensequence<K> nseq) {
-		return model.get(nseq);
+	public Optional<HashSet<Tokencount<K>>> getBasicNGramCandidates(Tokensequence<K> nseq) {
+		HashSet<Tokencount<K>> result = model.get(nseq);
+		if (result == null) {
+			return Optional.empty();
+		} else {
+			return Optional.of(result);
+		}
 	}
 }

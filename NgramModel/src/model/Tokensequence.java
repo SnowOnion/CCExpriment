@@ -46,8 +46,8 @@ public class Tokensequence<K> {
 			initsequence = Optional.of(tmpsequence);
 			lastoken = Optional.of(lastElem);
 		} else {
-			initsequence = Optional.of(null);
-			lastoken = Optional.of(null);
+			initsequence = Optional.empty();
+			lastoken = Optional.empty();
 			
 		}
 	}
@@ -67,6 +67,9 @@ public class Tokensequence<K> {
 		return this.lastoken;
 	}
 
+	public int hashCode() {
+		return 60;
+	}
 	
 	public boolean equals(Tokensequence<K> tokenseq) {
 		boolean b1 = (this.n == tokenseq.n);
