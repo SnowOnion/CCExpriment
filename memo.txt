@@ -3,3 +3,4 @@ Development Schedule
 [Restart] [21, May, 2018] Preparation for Project NGramModel.
 [Keep Moving 1] [22, May, 2018] Run the project with no error. Define and fix some classes.
 [Keep Moving 2] [22, May, 2018] Support the type parameter. Implement the function trainBasicNGramModel in the class BasicNGram, and it needs to be tested critically.
+[Keep Moving 3] [23, May, 2018] Improve the code in class Tokensequence(splitSequence etc.)

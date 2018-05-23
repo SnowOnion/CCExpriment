@@ -2,8 +2,8 @@ package model;
 
 
 public class Tokencount<K> {
-	private K token;
-	private int count;
+	public K token;
+	public int count;
 	
 	public Tokencount(K ptoken, int pcount) {
 		this.token = ptoken;
@@ -25,6 +25,7 @@ public class Tokencount<K> {
 	public boolean equals(Tokencount<K> tc) {
 		boolean cnteq = (count == tc.count);
 		boolean tokeneq = (token == tc.token);
+		
 		return (cnteq && tokeneq);
 	}
 }

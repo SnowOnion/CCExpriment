@@ -46,27 +46,28 @@ public class BasicNGram<K> {
 		
 		for (int i = 0; i < len; i++) {
 			Tokensequence<K> tmptokenseq = srcdicArr[i];
-			Tokensequence<K>[] tokenseqPair = tmptokenseq.splitToken();
+			Tokensequence<K> tmptokeninitseq = new Tokensequence<K>(tmptokenseq.getInitSequence().get()); 
+			K tmplasttoken = tmptokenseq.getLastToken().get();
 			
-			if (model.containsKey(tokenseqPair[0])) {
-				HashSet<Tokencount<K>> tokencntset =  model.remove(tokenseqPair[0]);
+			if (model.containsKey(tmptokeninitseq)) {
+				HashSet<Tokencount<K>> tokencntset =  model.remove(tmptokeninitseq);
 				Iterator<Tokencount<K>> it = tokencntset.iterator();
 				while(it.hasNext()) {
 					Tokencount<K> tokencnt = it.next();
-					if (tokencnt.getToken().equals(tokenseqPair[1])) {
+					if (tokencnt.getToken().equals(tmplasttoken)) {
 						tokencnt.addCount();
 						tokencntset.add(tokencnt);
 					} else {
-						tokencntset.add(new Tokencount(tokenseqPair[1], 1));
+						tokencntset.add(new Tokencount(tmplasttoken, 1));
 						break;
 					}
 				}
-				model.put(tokenseqPair[0], tokencntset);
+				model.put(tmptokeninitseq, tokencntset);
 			} else {
 				HashSet<Tokencount<K>> tokencntset = new HashSet<Tokencount<K>>();
-				Tokencount<K> tokencnt = new Tokencount<K>(tokenseqPair[1].getToken(), 1);
+				Tokencount<K> tokencnt = new Tokencount<K>(tmplasttoken, 1);
 				tokencntset.add(tokencnt);
-				model.put(tokenseqPair[0], tokencntset);
+				model.put(tmptokeninitseq, tokencntset);
 			}
 		}
 	}
