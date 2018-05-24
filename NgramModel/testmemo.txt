@@ -1,0 +1,18 @@
+Tokensequence<Integer> tokenseq1 = new Tokensequence<Integer>(intArr1);
+Tokensequence<Integer> tokenseq2 = new Tokensequence<Integer>(intArr3);
+HashSet<Tokensequence<Integer>> s = new HashSet<Tokensequence<Integer>>();
+s.add(tokenseq1);
+
+for (int i = 0; i < 10000; i++) {
+	ArrayList<Integer> ls = new ArrayList<Integer>();
+	ls.add(1);
+	ls.add(2);
+	ls.add(3);
+	ls.add(4);
+	ls.add(i);
+	Tokensequence<Integer> tokenseq = new Tokensequence<Integer>(ls);
+	s.add(tokenseq);
+}
+
+System.out.println(s.contains(tokenseq2));
+System.out.println(tokenseq1.equals(tokenseq2));

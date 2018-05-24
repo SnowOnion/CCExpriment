@@ -5,3 +5,4 @@ Development Schedule
 [Keep Moving 2] [22, May, 2018] Support the type parameter. Implement the function trainBasicNGramModel in the class BasicNGram, and it needs to be tested critically.
 [Keep Moving 3] [23, May, 2018] Improve the code in class Tokensequence(splitSequence etc.)
 [Keep Moving 4] [23, May, 2018] Simple test on the class BasicNGram, run with no errors.
+[Keep Moving 5] [24, May, 2018] Redefine hashCode() in class Tokensequence and optimize the structure of the project.

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 
 import model.BasicNGram;
-import model.Tokensequence;
+import unit.Tokensequence;
 
 
 public class Run {
@@ -26,7 +26,7 @@ public class Run {
 		tokenseqdictionary.add(seq3);
 		tokenseqdictionary.add(seq4);
 		
-		bn.preAction(tokenseqdictionary);
+		//bn.preAction(tokenseqdictionary);
 		Integer[] intArr = {1,2,3,4};
 		Tokensequence<Integer> seq = new Tokensequence<Integer>(intArr);
 		Optional<Integer> opIntInfered = bn.tokenInference(seq);
@@ -39,14 +39,6 @@ public class Run {
 		}
 		
 		System.out.println(opIntInfered);
-		
-		
-		Tokensequence<Integer> tokenseq1 = new Tokensequence<Integer>(intArr1);
-		Tokensequence<Integer> tokenseq2 = new Tokensequence<Integer>(intArr3);
-		HashSet<Tokensequence<Integer>> s = new HashSet<Tokensequence<Integer>>();
-		s.add(tokenseq1);
-		System.out.println(s.contains(tokenseq2));
-		System.out.println(tokenseq1.equals(tokenseq2));
 		System.out.println("OK");
 	}
 }

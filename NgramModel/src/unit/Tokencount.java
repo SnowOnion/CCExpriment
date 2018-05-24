@@ -1,4 +1,4 @@
-package model;
+package unit;
 
 
 public class Tokencount<K> {
@@ -20,6 +20,10 @@ public class Tokencount<K> {
 	
 	public void addCount() {
 		count++;
+	}
+	
+	public int hashCode() {
+		return 60;
 	}
 	
 	public boolean equals(Tokencount<K> tc) {

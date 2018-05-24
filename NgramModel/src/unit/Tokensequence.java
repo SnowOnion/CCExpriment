@@ -1,4 +1,4 @@
-package model;
+package unit;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -68,10 +68,20 @@ public class Tokensequence<K> {
 	}
 
 	
-	public int hashCode() {
-		return 60;
-	}
+//	public int hashCode() {	
+//		return 60;
+//	}
 	
+	public int hashCode() {
+		int hashcode = 0;
+		int len = 0;
+		
+		for (int i = 0; i < len; i++) {
+			hashcode += this.sequence.get(i).hashCode();
+		}
+		
+		return hashcode;
+	}
 	
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Tokensequence)) {
