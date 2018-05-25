@@ -66,21 +66,10 @@ public class Tokensequence<K> {
 	public Optional<K> getLastToken() {
 		return this.lastoken;
 	}
-
-	
-//	public int hashCode() {	
-//		return 60;
-//	}
 	
 	public int hashCode() {
-		int hashcode = 0;
-		int len = 0;
-		
-		for (int i = 0; i < len; i++) {
-			hashcode += this.sequence.get(i).hashCode();
-		}
-		
-		return hashcode;
+		String str = toString();
+		return (str.hashCode());
 	}
 	
 	public boolean equals(Object obj) {
@@ -106,4 +95,16 @@ public class Tokensequence<K> {
 		return (b1 && b2);
 	}
 	
+	public String toString() {
+		Integer ninteger = new Integer(n);
+		String str = ninteger.toString();
+		int len = sequence.size();
+		
+		for (int i = 0; i < len; i++) {
+			String s = sequence.get(i).toString();
+			str = str.concat(s);
+		}
+		
+		return str;
+	}
 }

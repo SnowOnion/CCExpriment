@@ -60,7 +60,7 @@ public class BasicNGram<K> {
 				while(it.hasNext()) {
 					Tokencount<K> tokencnt = it.next();
 					
-					if (tokencnt.getToken().equals(tmplasttoken)) {
+					if (tokencnt.getTokenElem().equals(tmplasttoken)) {
 						tokencnt.addCount();
 						tokencntset.add(tokencnt);
 					} else {
@@ -131,7 +131,7 @@ public class BasicNGram<K> {
 		if (tokencnt == null) {
 			return Optional.empty();
 		} else {
-			return Optional.of(tokencnt.getToken());
+			return Optional.of(tokencnt.getTokenElem());
 		}
 	}
 	
