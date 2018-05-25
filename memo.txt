@@ -8,3 +8,4 @@ Development Schedule
 [Keep Moving 5] [24, May, 2018] Redefine hashCode() in class Tokensequence and optimize the structure of the project.
 [Keep Moving 6] [24, May, 2018] Find the corpus, and commit.
 [Keep Moving 7] [25, May, 2018] Try a new implementation of hashCode() in class Tokensequence.
+[Keep Moving 8] [25, May, 2018] Define interface AppRunNGram and CacheNGram which is the subclass of BasicNGram.

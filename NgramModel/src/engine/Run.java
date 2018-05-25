@@ -8,8 +8,8 @@ import unit.Token;
 import unit.Tokensequence;
 
 
-public class Run {
-	public static void main(String[] args) {
+public class Run implements AppRunNGram{
+	public void run() {
 		BasicNGram<Integer> bn = new BasicNGram<>(4);
 
 		Integer[] intArr1 = {1,2,3,4,5};
@@ -73,6 +73,10 @@ public class Run {
 		System.out.println(seq3.hashCode());
 		System.out.println(seq4.hashCode());
 		System.out.println(opIntInfered);
+		
+		System.out.println(tokenseq1.toString());
+		System.out.println(tokenseq1.getInitSequence().get());
+		System.out.println(tokenseq1.getLastToken().get());
 		
 		System.out.println("OK");
 	}
