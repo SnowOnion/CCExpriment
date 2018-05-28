@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import unit.Tokencount;
 import unit.Tokensequence;
+import unit.Tokenstream;
 
 //HashMap <HashSet, HashSet<Tokencount>>
 //dic: the set of token
@@ -33,12 +34,12 @@ public class BasicNGram<K> {
 		return sourceDictionary;
 	}
 	
-	//TODO
+	
 	public  ArrayList<Tokensequence<K>> importCorpus(File pfile) {
 		//tokenseqlist: the list of token sequence with length (n+1) from the content in the pfile
 		//return tokenseqlist
-		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<Tokensequence<K>>();
-		return tokenseqlist;
+		Tokenstream<K> corpustream = new Tokenstream<K>(n + 1, pfile);
+		return (corpustream.getStreamList());
 	}
 	
 	

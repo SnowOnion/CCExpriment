@@ -6,7 +6,7 @@ public class Tokencount<K> {
 	public int count;
 	
 	public Tokencount(K ptokenElem, int pcount) {
-		this.token = new Token(ptokenElem);
+		this.token = new Token<K>(ptokenElem);
 		this.count = pcount;
 	}
 	

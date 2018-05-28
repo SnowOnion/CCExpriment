@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class Tokensequence<K> {
-	public int n;                        //length of token sequence
+	public int n;  //length of token sequence
 	public ArrayList<K> sequence;
 	
 	private Optional<ArrayList<K>> initsequence;
