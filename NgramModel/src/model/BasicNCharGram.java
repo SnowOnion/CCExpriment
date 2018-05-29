@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 
-import unit.Charstream;
-import unit.Tokencount;
-import unit.Tokensequence;
-import unit.Tokenstream;
+import tokenunit.Charstream;
+import tokenunit.Tokencount;
+import tokenunit.Tokensequence;
+import tokenunit.Tokenstream;
 
 //HashMap <HashSet, HashSet<Tokencount>>
 //dic: the set of token

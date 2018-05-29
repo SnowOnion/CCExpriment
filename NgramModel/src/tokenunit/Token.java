@@ -1,4 +1,4 @@
-package unit;
+package tokenunit;
 
 public class Token<K> {
 	public K tokenElem;

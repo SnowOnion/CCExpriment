@@ -1,16 +1,18 @@
 package engine;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
+import java.util.Properties;
 
+import iounit.TrainingListImporter;
 import model.BasicNCharGram;
-import unit.Tokensequence;
+import tokenunit.Tokensequence;
 
 
 public class Run implements AppRunNGram{
 	public void run() {
 		BasicNCharGram bn = new BasicNCharGram(4);
+		Properties congfig = new Properties();
 		File file = new File("C:\\Users\\HHeart\\Desktop\\CodeCompletion\\CCExpriment\\Data\\dataset1\\8_37216915_2006-8-21_4.5.txt");
 		bn.preAction(file);
 		
@@ -33,6 +35,10 @@ public class Run implements AppRunNGram{
 		if (inferedWord.isPresent()) {
 			System.out.println(inferedWord.get());
 		}
+		
+		TrainingListImporter filels = new TrainingListImporter(0);
+		System.out.println(filels.trainingDataFileList.size());
+		
 		return;
 	}
 }
