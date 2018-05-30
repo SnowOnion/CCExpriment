@@ -14,5 +14,7 @@ Development Schedule
 [Keep Moving 11] [29, May, 2018] Merge dataset2 into dataset1.
 [Keep Moving 12] [29, May, 2018] Add configuration file, and begin to implement multiple training files importer.
 [Keep Moving 13] [30, May, 2018] Accomplish the implemtation of multiple training files importer.
+[Keep Moving 14] [30, May, 2018] Some architecture optimization.
 
+Output error, cannot inferred token. The result of (HashSet<Tokencount<K>> result = model.get(nseq)) is null.
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time.

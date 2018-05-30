@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
-public class TrainingListImporter {
+public class CorpusImporter {
 	static public String rootdir;
 	public ArrayList<File> trainingDataFileList;
 	public int datatype;
 	//0: natural language data, char
 	//1: programming language data, token with type K which K is type variable
 	
-	public TrainingListImporter(int type) {
+	public CorpusImporter(int type) {
 		rootdir = "C:\\Users\\HHeart\\Desktop\\CodeCompletion\\CCExpriment\\";
 		String dataInputPath = rootdir + "NgramModel\\Config\\DataInput.properties";
 		datatype = type;

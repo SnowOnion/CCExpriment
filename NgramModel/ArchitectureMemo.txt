@@ -1,0 +1,3 @@
+need to do:
+BasicNCharGram  vs       BasicNGram
+Charstream      vs       TokenStream

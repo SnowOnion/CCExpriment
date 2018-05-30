@@ -1,11 +1,11 @@
 package test;
 
-import engine.Run;
+import engine.NLngramRunEngine;
 
 public class Test {
     
     public static void main(String[] args) {
-        Run runtest = new Run(); 
+    	NLngramRunEngine runtest = new NLngramRunEngine(); 
         runtest.run();
     }
 }

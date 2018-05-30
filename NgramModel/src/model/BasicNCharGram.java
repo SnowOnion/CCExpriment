@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 
-import iounit.TrainingListImporter;
+import iounit.CorpusImporter;
 import tokenunit.Charstream;
 import tokenunit.Tokencount;
 import tokenunit.Tokensequence;
@@ -49,13 +49,11 @@ public class BasicNCharGram {
 	//import Dictionary Token Sequence from the folder containing multiple files
 	public ArrayList<Tokensequence<Character>> importCorpus() {
 		ArrayList<Tokensequence<Character>> tokenseqlist = new ArrayList<>();
-		TrainingListImporter fileImporter = new TrainingListImporter(modelType);
+		CorpusImporter fileImporter = new CorpusImporter(modelType);
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
 		int fileNum = filels.size();
 		
-		for (int i = 0; i < fileNum; i++) {
-			System.out.println("FILE ID  " + String.valueOf(i));
-			System.out.println(filels.get(i).getName());
+		for (int i = 0; i < 100; i++) {
 			tokenseqlist.addAll(importCorpus(filels.get(i)));
 		}
 		
@@ -169,6 +167,8 @@ public class BasicNCharGram {
 		//return set of candidates corresponding to nseq, which has the form of {Tokencount} 
 		
 		HashSet<Tokencount<Character>> result = model.get(nseq);
+		System.out.println("query sequence length     " + String.valueOf(nseq.getSequence().size()));
+		System.out.println("model parameter   " + String.valueOf(this.n));
 		
 		if (result == null) {
 			return Optional.empty();

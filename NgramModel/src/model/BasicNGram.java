@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 
-import iounit.TrainingListImporter;
+import iounit.CorpusImporter;
 import tokenunit.Tokencount;
 import tokenunit.Tokensequence;
 import tokenunit.Tokenstream;
@@ -22,7 +22,7 @@ public class BasicNGram<K> {
 	
 	public int n; 
 	public HashSet<K> dic;
-	public int modelType; //0: natural language model;   1: programmign language model
+	public int modelType; //0: natural language model;   1: programming language model
 	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> model;
 	
 	public BasicNGram(int ngramN, int type) {
@@ -49,7 +49,7 @@ public class BasicNGram<K> {
 	//import Dictionary Token Sequence from the folder containing multiple files
 	public ArrayList<Tokensequence<K>> importCorpus() {
 		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<>();
-		TrainingListImporter fileImporter = new TrainingListImporter(modelType);
+		CorpusImporter fileImporter = new CorpusImporter(modelType);
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
 		int fileNum = filels.size();
 		

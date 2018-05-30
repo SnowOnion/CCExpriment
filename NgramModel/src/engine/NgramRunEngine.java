@@ -1,5 +1,5 @@
 package engine;
 
-interface AppRunNGram {
+interface NgramRunEngine {
 	public void run();
 }

@@ -1,18 +1,15 @@
 package engine;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Properties;
-
-import iounit.TrainingListImporter;
 import model.BasicNCharGram;
 import tokenunit.Tokensequence;
 
 
-public class Run implements AppRunNGram{
+public class NLngramRunEngine implements NgramRunEngine{
 	public void run() {
 		BasicNCharGram bn = new BasicNCharGram(4, 0);
 		bn.preAction();
+        
 		
 		System.out.println("----------Model------------");
 		System.out.print("N:");
@@ -21,16 +18,20 @@ public class Run implements AppRunNGram{
 		System.out.println(bn.getBasicNGramModel().keySet().size());
 		
 		ArrayList<Character> query = new ArrayList<Character>();
-		query.add('五');
-		query.add('星');
-		query.add('级');
-		query.add('宾');
+		query.add('当');
+		query.add('时');
+		query.add('前');
+		query.add('台');
 				
 		Tokensequence<Character> queryseq = new Tokensequence<Character>(query);
 		Optional<Character> inferedWord = bn.tokenInference(queryseq);
 		System.out.println("OK");
+		
+		
+		//can not search out the correct output
 		if (inferedWord.isPresent()) {
 			System.out.println(inferedWord.get());
+			System.out.println("OK");
 		}
 		
 		return;
