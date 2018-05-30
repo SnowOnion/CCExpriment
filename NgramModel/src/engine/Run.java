@@ -11,16 +11,12 @@ import tokenunit.Tokensequence;
 
 public class Run implements AppRunNGram{
 	public void run() {
-		BasicNCharGram bn = new BasicNCharGram(4);
-		Properties congfig = new Properties();
-		File file = new File("C:\\Users\\HHeart\\Desktop\\CodeCompletion\\CCExpriment\\Data\\dataset1\\8_37216915_2006-8-21_4.5.txt");
-		bn.preAction(file);
+		BasicNCharGram bn = new BasicNCharGram(4, 0);
+		bn.preAction();
 		
 		System.out.println("----------Model------------");
-		
 		System.out.print("N:");
 		System.out.println(bn.n);
-		
 		System.out.print("Size of ngramap:");
 		System.out.println(bn.getBasicNGramModel().keySet().size());
 		
@@ -31,13 +27,11 @@ public class Run implements AppRunNGram{
 		query.add('±ö');
 				
 		Tokensequence<Character> queryseq = new Tokensequence<Character>(query);
-		Optional<Character> inferedWord = bn.tokenInference(queryseq); 
+		Optional<Character> inferedWord = bn.tokenInference(queryseq);
+		System.out.println("OK");
 		if (inferedWord.isPresent()) {
 			System.out.println(inferedWord.get());
 		}
-		
-		TrainingListImporter filels = new TrainingListImporter(0);
-		System.out.println(filels.trainingDataFileList.size());
 		
 		return;
 	}

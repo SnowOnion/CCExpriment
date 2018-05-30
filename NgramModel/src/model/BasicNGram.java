@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 
+import iounit.TrainingListImporter;
 import tokenunit.Tokencount;
 import tokenunit.Tokensequence;
 import tokenunit.Tokenstream;
@@ -21,26 +22,44 @@ public class BasicNGram<K> {
 	
 	public int n; 
 	public HashSet<K> dic;
+	public int modelType; //0: natural language model;   1: programmign language model
 	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> model;
 	
-	public BasicNGram(int ngramN) {
+	public BasicNGram(int ngramN, int type) {
 		this.n = ngramN;
+		this.modelType = type;
 		this.dic = new HashSet<K>();
 		this.model = new HashMap<>();
 		Tokensequence<Character>[] srcdicArr = new Tokensequence [10];
 	}
 	
-	
+	//import Dictionary of Token Sequence directly
 	public  ArrayList<Tokensequence<K>> importCorpus(ArrayList<Tokensequence<K>> sourceDictionary) {
 		return sourceDictionary;
 	}
 	
-	
+	//import Dictionary of Token Sequence from single file
 	public  ArrayList<Tokensequence<K>> importCorpus(File pfile) {
 		//tokenseqlist: the list of token sequence with length (n+1) from the content in the pfile
 		//return tokenseqlist
 		Tokenstream<K> corpustream = new Tokenstream<K>(n + 1, pfile);
 		return (corpustream.getStreamList());
+	}
+	
+	//import Dictionary Token Sequence from the folder containing multiple files
+	public ArrayList<Tokensequence<K>> importCorpus() {
+		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<>();
+		TrainingListImporter fileImporter = new TrainingListImporter(modelType);
+		ArrayList<File> filels = fileImporter.trainingDataFileList;
+		int fileNum = filels.size();
+		
+		for (int i = 0; i < fileNum; i++) {
+			System.out.println("FILE ID  " + String.valueOf(i));
+			System.out.println(filels.get(i).getName());
+			tokenseqlist.addAll(importCorpus(filels.get(i)));
+		}
+		
+		return tokenseqlist;
 	}
 	
 	

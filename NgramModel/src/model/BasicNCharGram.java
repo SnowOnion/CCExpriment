@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 
+import iounit.TrainingListImporter;
 import tokenunit.Charstream;
 import tokenunit.Tokencount;
 import tokenunit.Tokensequence;
@@ -21,26 +22,44 @@ public class BasicNCharGram {
 	//model: ndic -> {[(candidate, prop or count)]}
 	
 	public int n; 
+	public int modelType; //0: natural language model;   1: programmign language model
 	public HashSet<Character> dic;
 	protected HashMap<Tokensequence<Character>, HashSet<Tokencount<Character>>> model;
 	
-	public BasicNCharGram(int ngramN) {
+	public BasicNCharGram(int ngramN, int type) {
 		this.n = ngramN;
+		this.modelType = type;
 		this.dic = new HashSet<Character>();
 		this.model = new HashMap<>();
 	}
 	
-	
+	//import Dictionary of Token Sequence directly
 	public  ArrayList<Tokensequence<Character>> importCorpus(ArrayList<Tokensequence<Character>> sourceDictionary) {
 		return sourceDictionary;
 	}
 	
-	
+	//import Dictionary of Token Sequence from single file
 	public  ArrayList<Tokensequence<Character>> importCorpus(File pfile) {
 		//tokenseqlist: the list of token sequence with length (n+1) from the content in the pfile
 		//return tokenseqlist
 		Charstream corpustream = new Charstream(n + 1, pfile);
 		return (corpustream.getStreamList());
+	}
+	
+	//import Dictionary Token Sequence from the folder containing multiple files
+	public ArrayList<Tokensequence<Character>> importCorpus() {
+		ArrayList<Tokensequence<Character>> tokenseqlist = new ArrayList<>();
+		TrainingListImporter fileImporter = new TrainingListImporter(modelType);
+		ArrayList<File> filels = fileImporter.trainingDataFileList;
+		int fileNum = filels.size();
+		
+		for (int i = 0; i < fileNum; i++) {
+			System.out.println("FILE ID  " + String.valueOf(i));
+			System.out.println(filels.get(i).getName());
+			tokenseqlist.addAll(importCorpus(filels.get(i)));
+		}
+		
+		return tokenseqlist;
 	}
 	
 	
@@ -83,9 +102,9 @@ public class BasicNCharGram {
 	}
 	
 
-	public void preAction(File inputCorpus) {
+	public void preAction() {
 		//Step 1: Import Corpus, check whether n is matched or not
-		ArrayList<Tokensequence<Character>> corpusList = importCorpus(inputCorpus);
+		ArrayList<Tokensequence<Character>> corpusList = importCorpus();
 		int len = corpusList.size();
 		if (len == 0) return;
 		if (corpusList.get(0).n - 1 != this.n) {
@@ -98,10 +117,8 @@ public class BasicNCharGram {
 			srcdicArr[i] = corpusList.get(i);
 		}
 		
-		
 		//Step 3: Train Model
 		trainBasicNGramModel(srcdicArr);
-		
 	}
 	
 	
