@@ -58,12 +58,14 @@ public class Tokenstream<K> {
         return strStream;
     }
 
-	
-	//TO BE DISCUSSED and REFINED
+
 	private void convertCharStreamToTokenStream(ArrayList<Character> strStream) {
 		wholeStream = new ArrayList<K>();
-		//wholeStream = (ArrayList<K>) Arrays.asList(strStream.toArray());
+		int len = strStream.size();
 		
+		for (int i = 0; i < len; i++) {
+			wholeStream.add((K)strStream.get(i));
+		}
 	}		
 	
 	//extract the streamList from token stream

@@ -30,7 +30,6 @@ public class BasicNGram<K> {
 		this.modelType = type;
 		this.dic = new HashSet<K>();
 		this.model = new HashMap<>();
-		Tokensequence<Character>[] srcdicArr = new Tokensequence [10];
 	}
 	
 	//import Dictionary of Token Sequence directly
@@ -51,9 +50,10 @@ public class BasicNGram<K> {
 		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<>();
 		CorpusImporter fileImporter = new CorpusImporter(modelType);
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
-		int fileNum = filels.size();
+		//int fileNum = filels.size();
+		int fileNum = 100;
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < fileNum; i++) {
 			tokenseqlist.addAll(importCorpus(filels.get(i)));
 		}
 		
