@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Tokenstream<K> {
-	public File tokenSourceFile;  //sourcefile                    
+	public File tokenSourceFile;  //sourcefile containing tokens with type K   
 	public int n; //sequence length
 	
 	private ArrayList<K> wholeStream;
@@ -23,7 +23,7 @@ public class Tokenstream<K> {
 		convertWholeStreamToStreamList();
 	}
 	
-	
+	//need to polish
 	//import token stream from sourcefile
 	private void importTokentStreamFromFile() {
 		ArrayList<Character> strStream = new ArrayList<Character>();
@@ -61,10 +61,10 @@ public class Tokenstream<K> {
 	
 	//TO BE DISCUSSED and REFINED
 	private void convertCharStreamToTokenStream(ArrayList<Character> strStream) {
-		//wholeStream = new ArrayList<K>();
-		wholeStream = (ArrayList<K>) Arrays.asList(strStream.toArray());
-	}
-	
+		wholeStream = new ArrayList<K>();
+		//wholeStream = (ArrayList<K>) Arrays.asList(strStream.toArray());
+		
+	}		
 	
 	//extract the streamList from token stream
 	private void convertWholeStreamToStreamList() {

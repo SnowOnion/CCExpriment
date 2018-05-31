@@ -53,9 +53,7 @@ public class BasicNGram<K> {
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
 		int fileNum = filels.size();
 		
-		for (int i = 0; i < fileNum; i++) {
-			System.out.println("FILE ID  " + String.valueOf(i));
-			System.out.println(filels.get(i).getName());
+		for (int i = 0; i < 100; i++) {
 			tokenseqlist.addAll(importCorpus(filels.get(i)));
 		}
 		
@@ -100,11 +98,10 @@ public class BasicNGram<K> {
 			}
 		}
 	}
-	
 
-	public void preAction(File inputCorpus) {
+	public void preAction() {
 		//Step 1: Import Corpus, check whether n is matched or not
-		ArrayList<Tokensequence<K>> corpusList = importCorpus(inputCorpus);
+		ArrayList<Tokensequence<K>> corpusList = importCorpus();
 		int len = corpusList.size();
 		if (len == 0) return;
 		if (corpusList.get(0).n - 1 != this.n) {

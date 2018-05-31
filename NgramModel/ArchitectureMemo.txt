@@ -1,3 +1,7 @@
 need to do:
 BasicNCharGram  vs       BasicNGram
 Charstream      vs       TokenStream
+import corpus acceleration(multiple threads)
+
+strategies:
+classify the type of token 

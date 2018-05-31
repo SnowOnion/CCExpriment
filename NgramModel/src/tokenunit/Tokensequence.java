@@ -68,6 +68,7 @@ public class Tokensequence<K> {
 	}
 	
 	public int hashCode() {
+		//need to polish
 		String str = toString();
 		return (str.hashCode());
 	}
