@@ -53,8 +53,7 @@ public class BasicNGram<K> {
 		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<>();
 		CorpusImporter fileImporter = new CorpusImporter(modelType);
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
-		//int fileNum = filels.size();
-		int fileNum = 100;
+		int fileNum = filels.size();
 		
 		for (int i = 0; i < fileNum; i++) {
 			tokenseqlist.addAll(importCorpus(filels.get(i)));

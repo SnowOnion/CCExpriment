@@ -19,7 +19,7 @@ Development Schedule
 [Keep Moving 16] [31, May, 2018] Define method convertCharStreamToTokenStream in Tokenstream.
 [Keep Moving 17] [1, June, 2018] Remove the Charstream.java and BasicNCharGram.java.Add some annotations.
 [Keep Moving 18] [1, June, 2018] Fix the error of N in BasicNGram Model. Add some annotations.
-
+[Keep Moving 19] [2, June, 2018] Fix the bug which cause output error in the inference.
 
 Output error, cannot inferred token. The result of (HashSet<Tokencount<K>> result = model.get(nseq)) is null.
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time.
