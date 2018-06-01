@@ -1,5 +1,7 @@
 package tokenunit;
 
+//Maybe redundant
+
 public class Tokentransformer<T1, T2> {
 	public T1 token1;
 		
@@ -7,8 +9,8 @@ public class Tokentransformer<T1, T2> {
 		this.token1 = token1;
 	}
 	
-	//TODO
 	public T2 transform() {
-		return null;
+		T2 token2 = (T2) token1;
+		return token2;
 	}
 }

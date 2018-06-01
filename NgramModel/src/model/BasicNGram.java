@@ -15,6 +15,9 @@ import tokenunit.Tokenstream;
 //HashMap <HashSet, HashSet<Tokencount>>
 //dic: the set of token
 
+//TODO: add the probablity of sentences to BasicNGram model
+//Not noly fix on the code or word completion
+//K can be String, Character and other types of tokens
 public class BasicNGram<K> {
 	//n in NGram, n = 2 in bigram, n = 3 in trigram
 	//ndic: n-order Cartesian product
@@ -41,7 +44,7 @@ public class BasicNGram<K> {
 	public  ArrayList<Tokensequence<K>> importCorpus(File pfile) {
 		//tokenseqlist: the list of token sequence with length (n+1) from the content in the pfile
 		//return tokenseqlist
-		Tokenstream<K> corpustream = new Tokenstream<K>(n + 1, pfile);
+		Tokenstream<K> corpustream = new Tokenstream<K>(n, pfile);
 		return (corpustream.getStreamList());
 	}
 	
@@ -104,7 +107,7 @@ public class BasicNGram<K> {
 		ArrayList<Tokensequence<K>> corpusList = importCorpus();
 		int len = corpusList.size();
 		if (len == 0) return;
-		if (corpusList.get(0).n - 1 != this.n) {
+		if (corpusList.get(0).n != this.n) {
 			return;
 		}
 		
@@ -135,7 +138,7 @@ public class BasicNGram<K> {
 		int maxcnt = 0;
 		Tokencount<K> tokencnt = null;
 		
-		//search
+		//Need to polish, select the Tokencount with the maximal count in the set.
 		while(it.hasNext()) {
 			Tokencount<K> tmptc = it.next();
 			int tmpcnt = tmptc.getCount();

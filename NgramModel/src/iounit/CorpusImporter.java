@@ -36,6 +36,7 @@ public class CorpusImporter {
 			trainingDataSrcDir += properties.getProperty("TRAINING_PL_DATAFILEDIR");
 		}
 		
+		//Debug Helper
 		System.out.println(properties.getProperty("TRAINING_NL_DATAFILEDIR"));
 		System.out.println(trainingDataSrcDir);
 		generateTrainingDataList(trainingDataSrcDir);

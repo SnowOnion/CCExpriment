@@ -1,7 +1,6 @@
 package engine;
 import java.util.ArrayList;
 import java.util.Optional;
-import model.BasicNCharGram;
 import model.BasicNGram;
 import tokenunit.Tokensequence;
 

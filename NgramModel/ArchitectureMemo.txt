@@ -1,8 +1,6 @@
 need to do:
-BasicNCharGram  vs       BasicNGram
-Charstream      vs       TokenStream
 import corpus acceleration(multiple threads)
 get the probability of the sentences instead of the token sequence with length n
 
 strategies:
-classify the type of token 
+classify the type of token
