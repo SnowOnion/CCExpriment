@@ -28,26 +28,27 @@ public class Tokenstream<K> {
 	private void importTokentStreamFromFile() {
 		ArrayList<Character> strStream = new ArrayList<Character>();
 		try {
-			//strStream = importCharStreamFromFile();
+			strStream = importCharStreamFromFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		//The type of token K can be Character, String and other types
 		convertCharStreamToTokenStream(strStream);
 	}
 	
 	
 	//import character stream from sourcefile
-	private ArrayList<K> importCharStreamFromFile() {
+	private ArrayList<Character> importCharStreamFromFile() {
         Reader reader = null;
-        ArrayList<K> strStream = new ArrayList<K>();
+        ArrayList<Character> strStream = new ArrayList<Character>();
         
         try {
             reader = new InputStreamReader(new FileInputStream(tokenSourceFile));
             int tempchar;
             while ((tempchar = reader.read()) != -1) {
                 if (((char) tempchar) != '\r') {
-                  //  wholeStream.strStream(new Character((char) tempchar));
+                    strStream.add(new Character((char) tempchar));
                 }
             }
             reader.close();
@@ -63,6 +64,7 @@ public class Tokenstream<K> {
 		wholeStream = new ArrayList<K>();
 		int len = strStream.size();
 		
+		//K: Character(default), String, etc.
 		for (int i = 0; i < len; i++) {
 			wholeStream.add((K)strStream.get(i));
 		}
@@ -77,8 +79,15 @@ public class Tokenstream<K> {
 			return;
 		}
 		
-		for (int i = 0; i < len; i++) {
-			ArrayList<K> seq = (ArrayList<K>) wholeStream.subList(i, i + this.n);   ///low efficient
+		for (int i = 0; i < len - n; i++) {
+			//ArrayList<K> seq = (ArrayList<K>) wholeStream.subList(i, i + this.n);   ///low efficient
+			
+			//Need to polish
+			ArrayList<K> seq = new ArrayList<>();
+			for (int j = 0; j < n; j++) {
+				seq.add(wholeStream.get(i + j));
+			}
+			
 			Tokensequence<K> tokenseq = new Tokensequence<K>(seq); 
 			streamList.add(tokenseq);
 		}
