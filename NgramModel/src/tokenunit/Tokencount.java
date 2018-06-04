@@ -1,6 +1,5 @@
 package tokenunit;
 
-
 public class Tokencount<K> {
 	public Token<K> token;
 	public int count;
@@ -28,8 +27,8 @@ public class Tokencount<K> {
 	}
 	
 	public int hashCode() {
-		String tokenStr = toString();
-		return (tokenStr.hashCode());
+		int hashValue = token.hashCode();
+		return hashValue;
 	}
 	
 	public boolean equals(Tokencount<K> tc) {
@@ -40,7 +39,6 @@ public class Tokencount<K> {
 	}
 	
 	public String toString() {
-		String str = token.tokenElem.toString();
-		return str;
+		return (token.tokenElem.toString() + String.valueOf(count));
 	}
 }

@@ -63,3 +63,27 @@
 		System.out.println(opIntInfered);
 		
 		System.out.println("OK");
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+重新定义hashcode, 简单相加和继承
+Data\dataset1
+C:\Users\HHeart\Desktop\CodeCompletion\CCExpriment\Data\dataset1
+0  Import the next 100 files
+100  Import the next 100 files
+200  Import the next 100 files
+300  Import the next 100 files
+400  Import the next 100 files
+500  Import the next 100 files
+600  Import the next 100 files
+700  Import the next 100 files
+800  Import the next 100 files
+900  Import the next 100 files
+Import done
+Import the corpus: 549
+Convertion done
+Convert the token: 13
+Training finished
+Train the model: 50601
+那
+Finish
+---------------------------------------------------------------------------

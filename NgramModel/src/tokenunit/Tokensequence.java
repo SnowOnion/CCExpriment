@@ -69,8 +69,11 @@ public class Tokensequence<K> {
 	
 	public int hashCode() {
 		//need to polish
-		String str = toString();
-		return (str.hashCode());
+		int hashValue = 0;
+		for (int i = 0; i < sequence.size(); i++) {
+			hashValue += sequence.get(i).hashCode();
+		}
+		return hashValue;
 	}
 	
 	public boolean equals(Object obj) {

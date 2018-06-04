@@ -14,6 +14,7 @@ public class Token<K> {
 	public int hashCode() {
 		int tokenKhashCode = toString().hashCode();
 		return tokenKhashCode;
+//		return tokenElem.hashCode();
 	}
 	
 	public boolean equals(Token<K> token) {

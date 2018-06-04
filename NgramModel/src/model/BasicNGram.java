@@ -55,10 +55,14 @@ public class BasicNGram<K> {
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
 		int fileNum = filels.size();
 		
-		for (int i = 0; i < fileNum; i++) {
+		for (int i = 0; i < 1000; i++) {
 			tokenseqlist.addAll(importCorpus(filels.get(i)));
+			if (i % 100 == 0) {
+				System.out.print(i);
+				System.out.println("  Import the next 100 files");
+			}
 		}
-		
+
 		return tokenseqlist;
 	}
 	
@@ -103,7 +107,13 @@ public class BasicNGram<K> {
 
 	public void preAction() {
 		//Step 1: Import Corpus, check whether n is matched or not
+		long importCorpusMoment1 = System.currentTimeMillis();
 		ArrayList<Tokensequence<K>> corpusList = importCorpus();
+		System.out.println("Import done");
+		long importCorpusMoment2 = System.currentTimeMillis();
+		long importCorpusTime = importCorpusMoment2 - importCorpusMoment1;
+		System.out.println("Import the corpus: " + String.valueOf(importCorpusTime));
+		
 		int len = corpusList.size();
 		if (len == 0) return;
 		if (corpusList.get(0).n != this.n) {
@@ -111,13 +121,23 @@ public class BasicNGram<K> {
 		}
 		
 		//Step 2: Convert the type of corpusList from ArrayList to Array
+		long convertionMoment1 = System.currentTimeMillis();
 		Tokensequence<K>[] srcdicArr = new Tokensequence [len];
 		for (int i = 0; i < len; i++) {
 			srcdicArr[i] = corpusList.get(i);
 		}
+		System.out.println("Convertion done");
+		long convertionMoment2 = System.currentTimeMillis();
+		long convertionTime = convertionMoment2 - convertionMoment1;
+		System.out.println("Convert the token: " + String.valueOf(convertionTime));
 		
 		//Step 3: Train Model
+		long trainMoment1 = System.currentTimeMillis();
 		trainBasicNGramModel(srcdicArr);
+		System.out.println("Training finished");
+		long trainMoment2 = System.currentTimeMillis();
+		long trainMoment = trainMoment2 - trainMoment1;
+		System.out.println("Train the model: " + String.valueOf(trainMoment));
 	}
 	
 	
