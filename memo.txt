@@ -22,6 +22,7 @@ Development Schedule
 [Keep Moving 19] [2, June, 2018] Fix the bug which cause output error in the inference.
 [Keep Moving 20] [4, June, 2018] Add time record and optimize the hashcode of several classes relevant to token.
 [Keep Moving 21] [5, June, 2018] Add refining module into the project. Implement laplacesmoothing.
+[Keep Moving 22] [5, June, 2018] Add other smoothing methods in the refineunit package. Create the module of evaluation.
 
 ------------------------------------------------------------------------------------
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time. Training model occupies a great of time.

@@ -4,7 +4,7 @@ package refineunit;
  * @author Lamp
  */
 
-public class LaplaceSmoothing {
+public class LidstoneSmoothing {
 	public double lambda;
 	public int ngramModelCount;
 	
@@ -12,7 +12,7 @@ public class LaplaceSmoothing {
 	 * @param alpha: nonnegative
 	 * @param ngramcount: total number of sequence in n-gram model
 	 */
-	public LaplaceSmoothing(double alpha, int ngramcount) {
+	public LidstoneSmoothing(double alpha, int ngramcount) {
 		this.lambda = alpha;
 		this.ngramModelCount = ngramcount;
 	}
