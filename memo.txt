@@ -23,6 +23,6 @@ Development Schedule
 [Keep Moving 20] [4, June, 2018] Add time record and optimize the hashcode of several classes relevant to token.
 [Keep Moving 21] [5, June, 2018] Add refining module into the project. Implement laplacesmoothing.
 [Keep Moving 22] [5, June, 2018] Add other smoothing methods in the refineunit package. Create the module of evaluation.
-
+[Keep Moving 23] [6, June, 2018] Fix a bug in Tokensequence.java
 ------------------------------------------------------------------------------------
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time. Training model occupies a great of time.

@@ -55,11 +55,11 @@ public class BasicNGram<K> {
 		ArrayList<File> filels = fileImporter.trainingDataFileList;
 		int fileNum = filels.size();
 		
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 20; i++) {
 			tokenseqlist.addAll(importCorpus(filels.get(i)));
 			if (i % 100 == 0) {
 				System.out.print(i);
-				System.out.println("  Import the next 100 files");
+				System.out.println("  Import the next 20 files");
 			}
 		}
 
@@ -75,6 +75,8 @@ public class BasicNGram<K> {
 		//add the element of srcdirArr into the model
 		for (int i = 0; i < len; i++) {
 			Tokensequence<K> tmptokenseq = srcdicArr[i];
+			System.out.println("MODEL N:");
+			System.out.println(this.n);
 			Tokensequence<K> tmptokeninitseq = new Tokensequence<K>(tmptokenseq.getInitSequence().get()); 
 			K tmplasttoken = tmptokenseq.getLastToken().get();
 			
@@ -140,42 +142,7 @@ public class BasicNGram<K> {
 		System.out.println("Train the model: " + String.valueOf(trainMoment));
 	}
 	
-	
-	public Optional<K> tokenInference(Tokensequence<K> nseq) {
-		//nseq: length of n
-		//return the most likely post token of nseq, and can be null
-		
-		//search in model and get the candidates set
-		Optional<HashSet<Tokencount<K>>> opcandidates = getBasicNGramCandidates(nseq);
-		
-		if (!opcandidates.isPresent()) {
-			return Optional.empty();
-		}
-		
-		HashSet<Tokencount<K>> candidates = opcandidates.get();
-		Iterator<Tokencount<K>> it = candidates.iterator();
-		int maxcnt = 0;
-		Tokencount<K> tokencnt = null;
-		
-		//Need to polish, select the Tokencount with the maximal count in the set.
-		while(it.hasNext()) {
-			Tokencount<K> tmptc = it.next();
-			int tmpcnt = tmptc.getCount();
-			
-			if (maxcnt < tmpcnt) {
-				maxcnt = tmpcnt;
-				tokencnt = tmptc;
-			}  
-		}
-		
-		if (tokencnt == null) {
-			return Optional.empty();
-		} else {
-			return Optional.of(tokencnt.getTokenElem());
-		}
-	}
-	
-	
+
 	public HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> getBasicNGramModel() {
 		//get the model
 		//detail: (a1,a2,...,an)--->{(candidate1, count1)...}   
