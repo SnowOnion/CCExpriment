@@ -46,7 +46,7 @@ public class Tokensequence<K> {
 			initsequence = Optional.of(tmpsequence);
 			lastoken = Optional.of(lastElem);
 		} else {
-			initsequence = Optional.empty();
+			initsequence = Optional.of(this.sequence);
 			lastoken = Optional.empty();
 			
 		}
