@@ -2,6 +2,7 @@ package refineunit;
 
 /**
  * @author Lamp
+ * Lid Stone Smoothing
  */
 
 public class LidstoneSmoothing {

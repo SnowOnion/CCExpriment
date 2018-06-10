@@ -3,6 +3,11 @@ package tokenunit;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * @author HHeart
+ * @param <K>: type of element in token
+ */
+
 public class Tokensequence<K> {
 	public int n;  //length of token sequence
 	public ArrayList<K> sequence;
@@ -16,7 +21,6 @@ public class Tokensequence<K> {
 		this.n = n;
 		sequence = new ArrayList<K>();
 	}
-	
 	
 	//If strArray.length is not equal to N in NGram model, it needs to report the failure
 	public Tokensequence(K[] tokenArray) {
@@ -67,8 +71,8 @@ public class Tokensequence<K> {
 		return this.lastoken;
 	}
 	
+	//POLISH
 	public int hashCode() {
-		//need to polish
 		int hashValue = 0;
 		for (int i = 0; i < sequence.size(); i++) {
 			hashValue += sequence.get(i).hashCode();

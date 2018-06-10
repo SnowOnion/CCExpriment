@@ -1,10 +1,10 @@
 package refineunit;
 
 /**
- * Witten Bell Smoothing
  * @author Lamp
- *
+ * Witten Bell Smoothing
  */
+
 public class WBSmoothing {
 	
 }

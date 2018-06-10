@@ -2,6 +2,12 @@ package tokenunit;
 
 //Maybe redundant
 
+/**
+ * @author HHeart
+ * @param <T1>: original type of element in token
+ * @param <T2>: target type of element in token
+ */
+
 public class Tokentransformer<T1, T2> {
 	public T1 token1;
 		

@@ -1,5 +1,10 @@
 package tokenunit;
 
+/**
+ * @author HHeart
+ * @param <K>: type of element in token
+ */
+
 public class Token<K> {
 	public K tokenElem;
 	
@@ -11,6 +16,7 @@ public class Token<K> {
 		this.tokenElem = ptoken.tokenElem;
 	}
 	
+	//POLISH
 	public int hashCode() {
 		int tokenKhashCode = toString().hashCode();
 		return tokenKhashCode;

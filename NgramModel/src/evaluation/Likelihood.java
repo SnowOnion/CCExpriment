@@ -1,12 +1,10 @@
 package evaluation;
 
 /**
- * @author Lamp
- */
-
-/**
+ * @author HHeart
  * Held-out Likelihood
  */
+
 public class Likelihood {
 	
 }

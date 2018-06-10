@@ -8,13 +8,23 @@ import model.BasicNGram;
 import tokenunit.Tokencount;
 import tokenunit.Tokensequence;
 
+/**
+ * @author HHeart
+ * 
+ * n-gram natural language model engine:
+ * ----inference token  
+ * ----calculate probability of token sequences(sentence, phrase etc.)
+ * 
+ * @param <K>: type of element in n-gram model
+ */
 
 public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	BasicNGram<K> ngram;
 	BasicNGram<K> [] gramArray;   //unigram, bigram, trigram or unigram ...ngram
 	
-	/**n       n-gram model parameter
-	 * type    0: natural language model;   1: programming language model
+	/**
+	 * @param n: n-gram model parameter
+	 * @param type:  0:natural language model;   1: programming language model
 	 */
 	public NLngramRunEngine(int n, int type){
 		this.ngram = new BasicNGram<K>(n, type);

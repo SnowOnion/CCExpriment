@@ -1,5 +1,10 @@
 package tokenunit;
 
+/**
+ * @author HHeart
+ * @param <K>: type of element in token
+ */
+
 public class Tokencount<K> {
 	public Token<K> token;
 	public int count;

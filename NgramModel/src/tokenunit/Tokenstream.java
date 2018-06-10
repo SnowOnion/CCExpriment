@@ -8,6 +8,11 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author HHeart
+ * @param <K>: type of element in stream
+ */
+
 public class Tokenstream<K> {
 	public File tokenSourceFile;  //sourcefile containing tokens with type K   
 	public int n; //sequence length

@@ -1,8 +1,12 @@
 package refineunit;
 
 import java.util.ArrayList;
-
 import model.BasicNGram;
+
+/**
+ * @author HHeart
+ * Interpolation Smoothing
+ */
 
 public class Interpolation {
 	public int submodelNum;

@@ -12,21 +12,16 @@ import tokenunit.Tokencount;
 import tokenunit.Tokensequence;
 import tokenunit.Tokenstream;
 
-//HashMap <HashSet, HashSet<Tokencount>>
-//dic: the set of token
+/**
+ * @author HHeart
+ * @param <K>: type of token in basic n-gram model
+ */
 
-//TODO: add the probablity of sentences to BasicNGram model
-//Not noly fix on the code or word completion
-//K can be String, Character and other types of tokens
 public class BasicNGram<K> {
-	//n in NGram, n = 2 in bigram, n = 3 in trigram
-	//ndic: n-order Cartesian product
-	//model: ndic -> {[(candidate, prop or count)]}
-	
-	public int n; 
-	public HashSet<K> dic;
-	public int modelType; //0: natural language model;   1: programming language model
-	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> model;
+	public int n;              //n = 2 in bigram; n = 3 in trigram
+	public HashSet<K> dic;     //dictionary
+	public int modelType;      //0: natural language model;   1: programming language model
+	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> model;  //kernel model in n-gram
 	
 	public BasicNGram(int ngramN, int type) {
 		this.n = ngramN;
@@ -40,29 +35,12 @@ public class BasicNGram<K> {
 		return sourceDictionary;
 	}
 	
-	//import Dictionary of Token Sequence from single file
-	public  ArrayList<Tokensequence<K>> importCorpus(File pfile) {
-		//tokenseqlist: the list of token sequence with length (n+1) from the content in the pfile
-		//return tokenseqlist
-		Tokenstream<K> corpustream = new Tokenstream<K>(n, pfile);
-		return (corpustream.getStreamList());
-	}
+
 	
 	//import Dictionary Token Sequence from the folder containing multiple files
 	public ArrayList<Tokensequence<K>> importCorpus() {
-		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<>();
-		CorpusImporter fileImporter = new CorpusImporter(modelType);
-		ArrayList<File> filels = fileImporter.trainingDataFileList;
-		int fileNum = filels.size();
-		
-		for (int i = 0; i < 20; i++) {
-			tokenseqlist.addAll(importCorpus(filels.get(i)));
-			if (i % 100 == 0) {
-				System.out.print(i);
-				System.out.println("  Import the next 20 files");
-			}
-		}
-
+		CorpusImporter<K> corpusImporter = new CorpusImporter<K>(modelType);
+		ArrayList<Tokensequence<K>> tokenseqlist = corpusImporter.importCorpusFromBase(n);
 		return tokenseqlist;
 	}
 	
