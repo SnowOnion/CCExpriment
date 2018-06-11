@@ -25,5 +25,7 @@ Development Schedule
 [Keep Moving 22] [5, June, 2018] Add other smoothing methods in the refineunit package. Create the module of evaluation.
 [Keep Moving 23] [6, June, 2018] Fix a bug in Tokensequence.java
 [Keep Moving 24] [6, June, 2018] Redesign NgramRunEngine and BasicNGram
-------------------------------------------------------------------------------------
+[Keep Moving 25] [7, June, 2018] Redesign the CorpusImporter module. Add some annotations.
+[Keep Moving 26] [11, June, 2018] Delete the class TokenTramsformer
+------------------------------------------------------------------------------------------------------------
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time. Training model occupies a great of time.

@@ -1,7 +1,6 @@
 package model;
 
 /**
- * 
  * @author HHeart
  * @param <K>: type of token in CacheNGram
  */
