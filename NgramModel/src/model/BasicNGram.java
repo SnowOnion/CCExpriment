@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 
 import iounit.CorpusImporter;
@@ -18,24 +19,24 @@ import tokenunit.Tokenstream;
  */
 
 public class BasicNGram<K> {
-	public int n;              //n = 2 in bigram; n = 3 in trigram
+	public int n;              //n>=2, n = 2 in bigram; n = 3 in trigram
 	public HashSet<K> dic;     //dictionary
 	public int modelType;      //0: natural language model;   1: programming language model
-	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> model;  //kernel model in n-gram
+	protected HashMap<Tokensequence<K>, Double> seqProbModel; //kernel model in n-gram
+	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> seqCntModel;  //kernel model in n-gram
 	
 	public BasicNGram(int ngramN, int type) {
 		this.n = ngramN;
 		this.modelType = type;
 		this.dic = new HashSet<K>();
-		this.model = new HashMap<>();
+		this.seqProbModel = new HashMap<>();
+		this.seqCntModel = new HashMap<>();
 	}
 	
 	//import Dictionary of Token Sequence directly
 	public  ArrayList<Tokensequence<K>> importCorpus(ArrayList<Tokensequence<K>> sourceDictionary) {
 		return sourceDictionary;
 	}
-	
-
 	
 	//import Dictionary Token Sequence from the folder containing multiple files
 	public ArrayList<Tokensequence<K>> importCorpus() {
@@ -44,22 +45,43 @@ public class BasicNGram<K> {
 		return tokenseqlist;
 	}
 	
-	
+	//train seqProbModel to calculate the probability of a given sequence
+	private void trainBasicNGramProbModel(Tokensequence<K>[] srcdicArr) {
+		int len = srcdicArr.length;
+		
+		HashMap<Tokensequence<K>, Integer> cntmap = new HashMap<>();
+		for (int i = 0; i < len; i++) {
+			Tokensequence<K> tmptokenseq = srcdicArr[i];
+			if (cntmap.containsKey(tmptokenseq)) {
+				int cnt = cntmap.remove(tmptokenseq);
+				cntmap.put(tmptokenseq, cnt + 1);
+			} else {
+				cntmap.put(tmptokenseq, 1);
+			}
+		}
+		
+		for (Map.Entry<Tokensequence<K>, Integer> entry : cntmap.entrySet()) {
+			seqProbModel.put(entry.getKey(), (entry.getValue() * 1.0 / len));
+		}
+		System.out.println("ProbModel done");
+		
+	}
+		
 	//TODO: need to polish, maybe has high time complexity
-	public void trainBasicNGramModel(Tokensequence<K>[] srcdicArr) {
+	private void trainBasicNGramCntModel(Tokensequence<K>[] srcdicArr) {
 		//train model using srcdicArr
 		int len = srcdicArr.length;
 		
 		//add the element of srcdirArr into the model
 		for (int i = 0; i < len; i++) {
 			Tokensequence<K> tmptokenseq = srcdicArr[i];
-			System.out.println("MODEL N:");
-			System.out.println(this.n);
+			//System.out.println("MODEL N:");
+			//System.out.println(this.n);
 			Tokensequence<K> tmptokeninitseq = new Tokensequence<K>(tmptokenseq.getInitSequence().get()); 
 			K tmplasttoken = tmptokenseq.getLastToken().get();
 			
-			if (model.containsKey(tmptokeninitseq)) {
-				HashSet<Tokencount<K>> tokencntset =  model.remove(tmptokeninitseq);
+			if (seqCntModel.containsKey(tmptokeninitseq)) {
+				HashSet<Tokencount<K>> tokencntset =  seqCntModel.remove(tmptokeninitseq);
 				Iterator<Tokencount<K>> it = tokencntset.iterator();
 				
 				while(it.hasNext()) {
@@ -74,13 +96,13 @@ public class BasicNGram<K> {
 					}
 				}
 				
-				model.put(tmptokeninitseq, tokencntset);
+				seqCntModel.put(tmptokeninitseq, tokencntset);
 			} else {
 				HashSet<Tokencount<K>> tokencntset = new HashSet<Tokencount<K>>();
 				Tokencount<K> tokencnt = new Tokencount<K>(tmplasttoken, 1);
 				
 				tokencntset.add(tokencnt);
-				model.put(tmptokeninitseq, tokencntset);
+				seqCntModel.put(tmptokeninitseq, tokencntset);
 			}
 		}
 	}
@@ -113,7 +135,8 @@ public class BasicNGram<K> {
 		
 		//Step 3: Train Model
 		long trainMoment1 = System.currentTimeMillis();
-		trainBasicNGramModel(srcdicArr);
+		trainBasicNGramProbModel(srcdicArr);
+		trainBasicNGramCntModel(srcdicArr);
 		System.out.println("Training finished");
 		long trainMoment2 = System.currentTimeMillis();
 		long trainMoment = trainMoment2 - trainMoment1;
@@ -121,18 +144,22 @@ public class BasicNGram<K> {
 	}
 	
 
-	public HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> getBasicNGramModel() {
+	public HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> getBasicNGramCntModel() {
 		//get the model
 		//detail: (a1,a2,...,an)--->{(candidate1, count1)...}   
 		
-		return this.model;
+		return this.seqCntModel;
+	}
+	
+	public HashMap<Tokensequence<K>, Double> getBasicNgramProbModel() {
+		return this.seqProbModel;
 	}
 	
 	
 	public Optional<HashSet<Tokencount<K>>> getBasicNGramCandidates(Tokensequence<K> nseq) {
 		//return set of candidates corresponding to nseq, which has the form of {Tokencount} 
 		
-		HashSet<Tokencount<K>> result = model.get(nseq);
+		HashSet<Tokencount<K>> result = seqCntModel.get(nseq);
 		
 		if (result == null) {
 			return Optional.empty();

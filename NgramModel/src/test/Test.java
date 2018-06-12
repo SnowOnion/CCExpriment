@@ -14,17 +14,20 @@ import tokenunit.Tokensequence;
 public class Test {
     
     public static void main(String[] args) {
-    	NLngramRunEngine<Character> runtest = new NLngramRunEngine<Character>(2, 0);
+    	NLngramRunEngine<Character> runtest = new NLngramRunEngine<Character>(3, 0);
     	//Character inference beginning
     	ArrayList<Character> query = new ArrayList<Character>();
     	query.add('·þ');
+    	query.add('Îñ');
     	
     	runtest.run();
     	Tokensequence<Character> queryseq = new Tokensequence<Character>(query);
     	Optional<Character> inferedWord = runtest.tokenInference(queryseq);
+    	float prob = runtest.probabilityCalculation(queryseq);
     			
     	if (inferedWord.isPresent()) {
     		System.out.println(inferedWord.get());
+    		System.out.println(prob);
     	} else {
     		System.out.println("miss value");
     	}

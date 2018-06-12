@@ -92,6 +92,10 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	
 	//TODO
 	public float probabilityCalculation(Tokensequence<K> nseq) {
+		//a small test, maybe unvalid and meaningless
+		if (ngram.getBasicNgramProbModel().keySet().contains(nseq)) {
+			return (ngram.getBasicNgramProbModel().get(nseq).floatValue());
+		}
 		return 0;
 	}
 	
