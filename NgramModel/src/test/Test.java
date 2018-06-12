@@ -17,13 +17,15 @@ public class Test {
     	NLngramRunEngine<Character> runtest = new NLngramRunEngine<Character>(3, 0);
     	//Character inference beginning
     	ArrayList<Character> query = new ArrayList<Character>();
-    	query.add('服');
-    	query.add('务');
+    	query.add('达');
+    	query.add('不');
     	
     	runtest.run();
     	Tokensequence<Character> queryseq = new Tokensequence<Character>(query);
     	Optional<Character> inferedWord = runtest.tokenInference(queryseq);
-    	float prob = runtest.probabilityCalculation(queryseq);
+    	query.add('到');
+    	
+    	float prob = runtest.probabilityCalculation(new Tokensequence<Character>(query));
     			
     	if (inferedWord.isPresent()) {
     		System.out.println(inferedWord.get());

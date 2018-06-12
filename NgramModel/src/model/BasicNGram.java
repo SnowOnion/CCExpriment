@@ -60,11 +60,11 @@ public class BasicNGram<K> {
 			}
 		}
 		
+		double t = 0.0;
 		for (Map.Entry<Tokensequence<K>, Integer> entry : cntmap.entrySet()) {
 			seqProbModel.put(entry.getKey(), (entry.getValue() * 1.0 / len));
 		}
 		System.out.println("ProbModel done");
-		
 	}
 		
 	//TODO: need to polish, maybe has high time complexity
