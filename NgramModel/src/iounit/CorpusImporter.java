@@ -62,7 +62,7 @@ public class CorpusImporter<K> {
 		ArrayList<Tokensequence<K>> tokenseqlist = new ArrayList<>();
 		
 		//POLISH
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < fileNum; i++) {
 			tokenseqlist.addAll(importCorpusFromSingleFile(trainingDataFileList.get(i), n));
 		}
 		

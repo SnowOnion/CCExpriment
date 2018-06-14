@@ -21,6 +21,7 @@ import tokenunit.Tokensequence;
 public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	BasicNGram<K> ngram;
 	BasicNGram<K> [] gramArray;   //unigram, bigram, trigram or unigram ...ngram
+	int maxN;                     //maximal parameter in gramArray
 	
 	/**
 	 * @param n: n-gram model parameter
@@ -28,31 +29,48 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	 */
 	public NLngramRunEngine(int n, int type){
 		this.ngram = new BasicNGram<K>(n, type);
-		this.gramArray = (BasicNGram<K>[]) new BasicNGram [3];
+		this.gramArray = (BasicNGram<K>[]) new BasicNGram [4];
 		
 		for (int i = 1; i <= 3; i++) {
-			this.gramArray[i - 1] = new BasicNGram<K>(i, type);
+			this.gramArray[i] = new BasicNGram<K>(i, type);
 		}
+		
+		maxN = 3;
 	}
 	
+	/**
+	 * @param n: n-gram model parameter
+	 * @param type:  0:natural language model;   1: programming language model
+	 * @param m: the maximal parameter of model in the gramArray
+	 */
 	public NLngramRunEngine(int n, int type, int m){
 		this.ngram = new BasicNGram<K>(n, type);
-		this.gramArray = (BasicNGram<K>[]) new BasicNGram [m];
+		this.gramArray = (BasicNGram<K>[]) new BasicNGram [m + 1];
 		
-		for (int i = 2; i <= m; i++) {
-			this.gramArray[i - 1] = new BasicNGram<K>(i, type);
+		//gramArray[1]: unary gram     gramArray[i]: i-gram
+		for (int i = 1; i <= m; i++) {
+			this.gramArray[i] = new BasicNGram<K>(i, type);
 		}
+		
+		maxN = m;
 	}
 	
 	public void preAction() {
+		System.out.println("N-gram engine for natural language warms up");
 		ngram.preAction();
-		System.out.println("NGRAM PREACTION DONE!");
+		System.out.println("n-gram preaction finished");
+		System.out.println("---------------------------------");
+		System.out.println();
 		
 		for (int i = 1; i < gramArray.length; i++) {
 			gramArray[i].preAction();
-			System.out.println("NGRAMARR SINGLE PREACTION DONE!");
+			System.out.print(Integer.toString(i) + "-gram");
+			System.out.println(" single preaction finished");
+			System.out.println("---------------------------------");
+			System.out.println();
 		}
-		System.out.println("NGRAM PREACTION DONE!");
+		
+		System.out.println("N-gram engine for natural language is prepared");
 	}
 	
 	public Optional<K> tokenInference(Tokensequence<K> nseq) {
@@ -60,6 +78,7 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		//return the most likely post token of nseq, and can be null
 		
 		//search in model and get the candidates set
+		/*
 		Optional<HashSet<Tokencount<K>>> opcandidates = ngram.getBasicNGramCandidates(nseq);
 		
 		if (!opcandidates.isPresent()) {
@@ -87,22 +106,30 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 		} else {
 			return Optional.of(tokencnt.getTokenElem());
 		}
+		*/
+		
+		return Optional.empty();
 	}
 	
 	
-	//TODO
+	//TODO, IMPORTANT
+	/** maxN = 3
+	 * using refineunit such as LidstoneSmoothing
+	 * P(a1 a2 a3 a4 ... ak ... a_(n-1), an) 
+	 * = p(a1) * p(a2 | a1) * p(a3 | a1 a2) * ... * p(an | a_(n-2) a_(n-1)
+	 * = p(a1) * (p(a1 a2) / p(a1)) * (p(a1 a2 a3) / p(a1 a2)) * ... * p(a_(n-2) a_(n-1) a_n) / p(a_(n-2) a_(n-1)) 
+	 */
+	
 	public float probabilityCalculation(Tokensequence<K> nseq) {
-		//a small test, maybe unvalid and meaningless
+		//a small test, maybe invalid and meaningless
 		if (ngram.getBasicNgramProbModel().keySet().contains(nseq)) {
 			return (ngram.getBasicNgramProbModel().get(nseq).floatValue());
 		}
 		return 0;
 	}
 	
-	
 	public void run() {
-		preAction();
-		
+		preAction();	
 		return;
 	}
 }

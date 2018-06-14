@@ -23,6 +23,8 @@ public class BasicNGram<K> {
 	public HashSet<K> dic;     //dictionary
 	public int modelType;      //0: natural language model;   1: programming language model
 	protected HashMap<Tokensequence<K>, Double> seqProbModel; //kernel model in n-gram
+	
+	//maybe unnecessary
 	protected HashMap<Tokensequence<K>, HashSet<Tokencount<K>>> seqCntModel;  //kernel model in n-gram
 	
 	public BasicNGram(int ngramN, int type) {
@@ -67,7 +69,7 @@ public class BasicNGram<K> {
 		System.out.println("ProbModel done");
 	}
 		
-	//TODO: need to polish, maybe has high time complexity
+	//need to polish, maybe has high time complexity
 	private void trainBasicNGramCntModel(Tokensequence<K>[] srcdicArr) {
 		//train model using srcdicArr
 		int len = srcdicArr.length;
@@ -109,12 +111,15 @@ public class BasicNGram<K> {
 
 	public void preAction() {
 		//Step 1: Import Corpus, check whether n is matched or not
+		System.out.println("---------------------------------");
+		System.out.println("Corpus import begins");
 		long importCorpusMoment1 = System.currentTimeMillis();
 		ArrayList<Tokensequence<K>> corpusList = importCorpus();
 		System.out.println("Import done");
 		long importCorpusMoment2 = System.currentTimeMillis();
 		long importCorpusTime = importCorpusMoment2 - importCorpusMoment1;
-		System.out.println("Import the corpus: " + String.valueOf(importCorpusTime));
+		System.out.println("Time cost: " + String.valueOf(importCorpusTime) + " ms");
+		System.out.println("---------------------------------");
 		
 		int len = corpusList.size();
 		if (len == 0) return;
@@ -123,6 +128,8 @@ public class BasicNGram<K> {
 		}
 		
 		//Step 2: Convert the type of corpusList from ArrayList to Array
+		System.out.println("---------------------------------");
+		System.out.println("Convertion begins");
 		long convertionMoment1 = System.currentTimeMillis();
 		Tokensequence<K>[] srcdicArr = new Tokensequence [len];
 		for (int i = 0; i < len; i++) {
@@ -131,16 +138,33 @@ public class BasicNGram<K> {
 		System.out.println("Convertion done");
 		long convertionMoment2 = System.currentTimeMillis();
 		long convertionTime = convertionMoment2 - convertionMoment1;
-		System.out.println("Convert the token: " + String.valueOf(convertionTime));
+		System.out.println("Time cost: " + String.valueOf(convertionTime) + " ms");
+		System.out.println("---------------------------------");
 		
 		//Step 3: Train Model
+		//Step 3.1: Train seqProbModel
+		System.out.println("---------------------------------");
+		System.out.println("Prob Model Training begins");
 		long trainMoment1 = System.currentTimeMillis();
 		trainBasicNGramProbModel(srcdicArr);
-		trainBasicNGramCntModel(srcdicArr);
-		System.out.println("Training finished");
+		System.out.println("Prob Model Training finished");
 		long trainMoment2 = System.currentTimeMillis();
-		long trainMoment = trainMoment2 - trainMoment1;
-		System.out.println("Train the model: " + String.valueOf(trainMoment));
+		long trainTime1 = trainMoment2 - trainMoment1;
+		System.out.println("Time cost " + String.valueOf(trainTime1) + " ms");
+		System.out.println("---------------------------------");
+		
+		/*
+		//Step 3.2: Train seqCntModel
+		System.out.println("---------------------------------");
+		System.out.println("Count Model Training begins");
+		long trainMoment3 = System.currentTimeMillis();
+		trainBasicNGramProbModel(srcdicArr);
+		System.out.println("Count Model Training finished");
+		long trainMoment4 = System.currentTimeMillis();
+		long trainTime2 = trainMoment4 - trainMoment3;
+		System.out.println("Time cost " + String.valueOf(trainTime2) + " ms");
+		System.out.println("---------------------------------");
+		*/
 	}
 	
 

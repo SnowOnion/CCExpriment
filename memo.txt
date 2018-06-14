@@ -28,5 +28,6 @@ Development Schedule
 [Keep Moving 25] [7, June, 2018] Redesign the CorpusImporter module. Add some annotations.
 [Keep Moving 26] [11, June, 2018] Delete the class TokenTramsformer
 [Keep Moving 27] [12, June, 2018] Add seqProbModel in BasicNGram class. Bug: output 0.0
+[Keep Moving 28] [14, June,2018] Refine seqProModel and test successfully. Need to implement the probabilityCalculation in NLngramRunEngine using smoothing
 ------------------------------------------------------------------------------------------------------------
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time. Training model occupies a great of time.
