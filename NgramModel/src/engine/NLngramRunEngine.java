@@ -116,16 +116,36 @@ public class NLngramRunEngine<K> implements NgramRunEngine<K>{
 	/** maxN = 3
 	 * using refineunit such as LidstoneSmoothing
 	 * P(a1 a2 a3 a4 ... ak ... a_(n-1), an) 
-	 * = p(a1) * p(a2 | a1) * p(a3 | a1 a2) * ... * p(an | a_(n-2) a_(n-1)
+	 * = p(a1) * p(a2 | a1) * p(a3 | a1 a2) * ... * p(an | a_(n-2) a_(n-1))
 	 * = p(a1) * (p(a1 a2) / p(a1)) * (p(a1 a2 a3) / p(a1 a2)) * ... * p(a_(n-2) a_(n-1) a_n) / p(a_(n-2) a_(n-1)) 
+	 * = p(a1) * p(a1 a2) * p(a1 a2 a3) * p(a2 a3 a4) * ... * p(a_(n-2) a_(n-1) a_(n)) / 
+	 *   p(a1) * p(a1 a2) * p(a2 a3) * p(a3 a4) * p(a4 a5) * ... * p(a_(n-2) a_(n-1))
 	 */
 	
-	public float probabilityCalculation(Tokensequence<K> nseq) {
+	public double probabilityCalculation(Tokensequence<K> nseq) {
 		//a small test, maybe invalid and meaningless
 		if (ngram.getBasicNgramProbModel().keySet().contains(nseq)) {
-			return (ngram.getBasicNgramProbModel().get(nseq).floatValue());
+			return (ngram.getBasicNgramProbModel().get(nseq).doubleValue());
 		}
-		return 0;
+		
+		int len = nseq.length();
+		if (len == 1 || len == 2) {
+			return (gramArray[len].getBasicNgramProbModel().get(nseq).doubleValue());
+		}
+		
+		//without smoothing
+		double prob = 1.0;
+
+		for (int i = 0; i < maxN; i++) {
+			
+		}
+		
+		for (int i = 0; i < nseq.length(); i++) {
+			//p(a1) * p(a1 a2) * p(a1 a2 a3) * p(a2 a3 a4) * ... * p(a_(n-2) a_(n-1) a_(n)) /
+			//p(a1) * p(a1 a2) * p(a2 a3) * p(a3 a4) * p(a4 a5) * ... * p(a_(n-2) a_(n-1))
+		}
+		
+		return prob;
 	}
 	
 	public void run() {

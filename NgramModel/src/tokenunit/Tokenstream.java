@@ -18,7 +18,7 @@ public class Tokenstream<K> {
 	public int n; //sequence length
 	
 	private ArrayList<K> wholeStream;
-	private ArrayList<Tokensequence<K>> streamList;
+	private ArrayList<Tokensequence<K>> streamList;	
 	
 	public Tokenstream(int N, File ptokenSourceFile) {
 		this.n = N;

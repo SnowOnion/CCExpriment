@@ -56,6 +56,9 @@ public class Tokensequence<K> {
 		}
 	}
 	
+	public int length() {
+		return this.n;
+	}
 	
 	public ArrayList<K> getSequence() {
 		return this.sequence;

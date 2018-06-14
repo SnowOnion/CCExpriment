@@ -14,16 +14,16 @@ import tokenunit.Tokensequence;
 public class Test {
     
     public static void main(String[] args) {
-    	NLngramRunEngine<Character> runtest = new NLngramRunEngine<Character>(3, 0);
+    	NLngramRunEngine<Character> runtest = new NLngramRunEngine<Character>(1, 0);
     	runtest.run();
     	
     	ArrayList<Character> query = new ArrayList<Character>();
     	query.add('达');
-    	query.add('不');
-    	query.add('达');
+//    	query.add('不');
+//    	query.add('达');
     	
     	Tokensequence<Character> queryseq = new Tokensequence<Character>(query);
-    	float prob = runtest.probabilityCalculation(new Tokensequence<Character>(query));
+    	double prob = runtest.probabilityCalculation(new Tokensequence<Character>(query));
     	System.out.println(prob);
     	
 //    	Optional<Character> inferedWord = runtest.tokenInference(queryseq);		
