@@ -1,6 +1,6 @@
-CCExpriment
+CCExperiment
 
-Code: Completion Expriment
+Code: Completion Experiment
 
 
 
