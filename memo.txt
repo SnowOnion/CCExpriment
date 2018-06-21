@@ -30,5 +30,6 @@ Development Schedule
 [Keep Moving 27] [12, June, 2018] Add seqProbModel in BasicNGram class. Bug: output 0.0
 [Keep Moving 28] [14, June,2018] Refine seqProModel and test successfully. Need to implement the probabilityCalculation in NLngramRunEngine using smoothing
 [Keep Moving 29] [14, June, 2018] List the subtasks in devmemo.txt
+[Keep Moving 30] [21, June, 2018] Download corpus PENN TREEBANK SAMPLE.
 ------------------------------------------------------------------------------------------------------------
 Low efficiency in [Keep Moving 13], and cannot get inferred token in a long time. Training model occupies a great of time.

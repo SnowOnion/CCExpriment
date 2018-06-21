@@ -2,16 +2,13 @@ List of functions undefined
 	tokenInference(add the threshold?)
 	probabilityCalculation(log + sum or multiple)
 
-probabilityCalculation(log + sum or multiple) (1 day)
-
-define Smoothing operator (1 day)
-
+merge gramArray in NLngramRunEngine into basicNGram (1 day)
 optimize the corpus import(import only once) (1 day)
 
-replace TokenSequence<K> by String (1 day)
-
-choose the corpus (1 day)
-
+define Smoothing operator (1 day)
+probabilityCalculation(log + sum or multiple) (1 day)
 tokenInference(add the threshold?) (1 day)
 
 evaluation (1 day)
+
+replace TokenSequence<K> by String (1 day)
